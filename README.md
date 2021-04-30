@@ -12,7 +12,7 @@
     - Follow [react docs tutorial](https://reactjs.org/tutorial/tutorial.html)
 - react-with-hooks
     - Refactor tutorial to use hooks
-- CPU-Easy
+- CPU-easy
     - Add CPU player that picks first available spot
-- CPU-Hard
+- CPU-hard
     - implement minimax algorithm for CPU logic
