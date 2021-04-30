@@ -3,12 +3,12 @@ import './square';
 import '../index.css';
 import Square from './square';
 
-const Board = () => {
+const Board = ({ squares, onClick }) => {
     
      const renderSquare = (i) => {
       return( <Square 
-                value={this.props.squares[i]}
-                onClick={() => this.props.onClick(i)} 
+                value={squares[i]}
+                onClick={() => onClick(i)} 
               />
             );
      }
