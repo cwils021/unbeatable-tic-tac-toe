@@ -1,12 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Board from './board';
 import calculateWinner from '../calculateWinner';
+
 
 const Game = () => {
     const [history, setHistory] = useState([Array(9).fill(null)]);
     const [stepNumber, setStepNumber] = useState(0);
     const [xIsNext, setXIsNext] = useState(true);
     
+ 
+
+    const handleCPUTurn = () => {
+        const pointInHistory = history.slice(0, stepNumber + 1);
+        const current = pointInHistory[stepNumber];
+        const squares = [...current];
+        let randomSqaure = Math.floor(Math.random() * 8);
+
+        if (calculateWinner(squares)) return;
+        
+        while(true){
+            if (squares[randomSqaure]) {
+                randomSqaure = Math.floor(Math.random() * 8);
+                continue;
+            }
+            else {
+                squares[randomSqaure] = 'O';
+                setHistory([...pointInHistory, squares]);
+                setStepNumber(pointInHistory.length);
+                setXIsNext(xIsNext);
+                break;
+            }
+        }
+    }
+
     const handleClick = (i) => {
         const pointInHistory = history.slice(0, stepNumber + 1);
         const current = pointInHistory[stepNumber];
@@ -14,12 +40,13 @@ const Game = () => {
         if (calculateWinner(squares) || squares[i]) {
           return;
         }
-        squares[i] = xIsNext ? 'X' : 'O';
+        squares[i] = 'X';
         setHistory([...pointInHistory, squares]);
         setStepNumber(pointInHistory.length);
         setXIsNext(!xIsNext);
-       
     }
+    useEffect(() => (
+        handleCPUTurn(),[xIsNext]));
 
     const jumpTo = (step) => {
         setStepNumber(step);
